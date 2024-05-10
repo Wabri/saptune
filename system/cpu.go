@@ -471,18 +471,15 @@ func currentCPUDriver() string {
 // checkCPUState checks, if all cpus have the same state settings
 // returns true, if the cpu states differ
 func checkCPUState(csMap map[string]string) bool {
-	ret := false
 	oldcpuState := ""
 	for _, cpuState := range csMap {
 		if oldcpuState == "" {
 			oldcpuState = cpuState
-		}
-		if oldcpuState != cpuState {
-			ret = true
-			break
+		} else if oldcpuState != cpuState {
+			return true
 		}
 	}
-	return ret
+	return false
 }
 
 // GetdmaLatency retrieve DMA latency configuration from the system
