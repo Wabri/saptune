@@ -41,7 +41,7 @@ var tstErrorExitOut = func(str string, out ...interface{}) error {
 	return fmt.Errorf(str+"\n", out...)
 }
 
-var switchOnColor = func(t *testing.T) {
+var switchOnColor = func() {
 	setGreenText = "\033[32m"
 	setRedText = "\033[31m"
 	setYellowText = "\033[33m"
