@@ -1,7 +1,6 @@
 package system
 
 import (
-	"io/ioutil"
 	"os"
 	"regexp"
 )
@@ -74,7 +73,7 @@ func GetCSP() string {
 		return csp
 	}
 	// check for Azure
-	if content, err := ioutil.ReadFile(dmiChassisAssetTag); err == nil {
+	if content, err := os.ReadFile(dmiChassisAssetTag); err == nil {
 		matches := isAzureCat.FindStringSubmatch(string(content))
 		if len(matches) != 0 {
 			csp = CSPAzure
@@ -82,7 +81,7 @@ func GetCSP() string {
 	}
 	if csp == "" {
 		// SystemManufacturer
-		if content, err := ioutil.ReadFile(dmiSystemManufacturer); err == nil {
+		if content, err := os.ReadFile(dmiSystemManufacturer); err == nil {
 			// check for Azure
 			matches := isAzure.FindStringSubmatch(string(content))
 			if len(matches) != 0 {
@@ -102,7 +101,7 @@ func GetCSP() string {
 	}
 	if csp == "" {
 		// BoardVendor
-		if content, err := ioutil.ReadFile(dmiBoardVendor); err == nil {
+		if content, err := os.ReadFile(dmiBoardVendor); err == nil {
 			// check for AWS
 			matches := isAWS.FindStringSubmatch(string(content))
 			if len(matches) != 0 {
@@ -112,7 +111,7 @@ func GetCSP() string {
 	}
 	if csp == "" {
 		// BiosVersion
-		if content, err := ioutil.ReadFile(dmiBiosVersion); err == nil {
+		if content, err := os.ReadFile(dmiBiosVersion); err == nil {
 			// check for AWS
 			matches := isAWS.FindStringSubmatch(string(content))
 			if len(matches) != 0 {
@@ -132,7 +131,7 @@ func GetCSP() string {
 	}
 	if csp == "" {
 		// BiosVendor
-		if content, err := ioutil.ReadFile(dmiBiosVendor); err == nil {
+		if content, err := os.ReadFile(dmiBiosVendor); err == nil {
 			// check for Google
 			matches := isGoogle.FindStringSubmatch(string(content))
 			if len(matches) != 0 {
@@ -147,7 +146,7 @@ func GetCSP() string {
 	}
 	if csp == "" {
 		// SystemVersion
-		if content, err := ioutil.ReadFile(dmiSystemVersion); err == nil {
+		if content, err := os.ReadFile(dmiSystemVersion); err == nil {
 			// check for AWS
 			matches := isAWS.FindStringSubmatch(string(content))
 			if len(matches) != 0 {
@@ -157,7 +156,7 @@ func GetCSP() string {
 	}
 	if csp == "" {
 		// SysVendor
-		if content, err := ioutil.ReadFile(dmiSysVendor); err == nil {
+		if content, err := os.ReadFile(dmiSysVendor); err == nil {
 			// check for AWS
 			matches := isAWS.FindStringSubmatch(string(content))
 			if len(matches) != 0 {
