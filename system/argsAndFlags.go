@@ -3,6 +3,8 @@ package system
 import (
 	"os"
 	"strings"
+
+	"golang.org/x/text/cases"
 )
 
 // get saptune arguments and flags
@@ -80,13 +82,13 @@ func ParseCliArgs() ([]string, map[string]string) {
 
 // handleFlags checks for valid flags in the CLI arg list
 func handleFlags(arg string, idx int, flags map[string]string) bool {
-	fval := idx + 1
-	farg := "flag_value"
-	if fval < len(os.Args) {
-		farg = os.Args[fval]
+	flagIndex := idx + 1
+	flagValue := "flag_value"
+	if flagIndex < len(os.Args) {
+		flagValue = os.Args[flagIndex]
 	}
 
-	skip := handleValueFlags(arg, farg, flags)
+	skip := handleValueFlags(arg, flagValue, flags)
 	if !skip {
 		handleSimpleFlags(arg, flags)
 	}
@@ -94,19 +96,17 @@ func handleFlags(arg string, idx int, flags map[string]string) bool {
 }
 
 // handleValueFlags checks for valid flags with value in the CLI arg list
-func handleValueFlags(arg, farg string, flags map[string]string) bool {
-	skip := false
-	if strings.Contains(arg, "--format") {
-		// --format json
-		flags["format"] = farg
-		skip = true
+func handleValueFlags(arg, flagValue string, flags map[string]string) bool {
+	switch arg {
+	case "--format", "-format":
+		flags["format"] = flagValue
+		return true
+	case "--colorscheme", "-colorscheme":
+		flags["colorscheme"] = flagValue
+		return true
+	default:
+		return false
 	}
-	if strings.Contains(arg, "-colorscheme") {
-		// --colorscheme zebra
-		flags["colorscheme"] = farg
-		skip = true
-	}
-	return skip
 }
 
 // handleSimpleFlags checks for valid flags in the CLI arg list
@@ -134,7 +134,7 @@ func handleSimpleFlags(arg string, flags map[string]string) {
 // collection of unsupported Flags
 func setUnsupportedFlag(val string, flags map[string]string) {
 	if flags["notSupported"] == "" {
-		flags["notSupported"] = flags["notSupported"] + val
+		flags["notSupported"] = val
 	} else {
 		flags["notSupported"] = flags["notSupported"] + " " + val
 	}
