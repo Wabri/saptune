@@ -33,11 +33,9 @@ func OptSysctlVal(operator txtparser.Operator, key, actval, cfgval string) strin
 		fieldE := ""
 		if len(allFieldsC) != len(allFieldsE) {
 			fieldE = fieldC
-
-			if (operator == txtparser.OperatorLessThan || operator == txtparser.OperatorLessThanEqual) && k == 0 {
-				fieldE = allFieldsE[0]
-			}
-			if (operator == txtparser.OperatorMoreThan || operator == txtparser.OperatorMoreThanEqual) && k == len(allFieldsC)-1 {
+			isOperatorLTOrLTE := (operator == txtparser.OperatorLessThan ||
+				operator == txtparser.OperatorLessThanEqual)
+			if isOperatorLTOrLTE && (k == 0 || k == len(allFieldsC)-1) {
 				fieldE = allFieldsE[0]
 			}
 		} else {
