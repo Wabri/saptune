@@ -162,7 +162,7 @@ func GetFiles(dir string) map[string]string {
 
 // ListDir list directory content and returns a slice for the directory names
 // and a slice for the file names.
-func ListDir(dirPath, logMsg string) (dirNames, fileNames []string) {
+func ListDir(dirPath, logMsg string) (dirNames []string, fileNames []string) {
 	entries, err := os.ReadDir(dirPath)
 	if err != nil && logMsg != "" {
 		// Not a fatal error
