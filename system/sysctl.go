@@ -98,7 +98,7 @@ func CollectGlobalSysctls(excludeDirs []string) {
 
 // getSysctlFilelist builds a file list with all available sysctl conf files
 // following symlinks
-func getSysctlFilelist(dirs []string, fileList map[string]string, exclude bool) {
+func getSysctlFilelist(dirs []string, fileList map[string]string, excludeSymLinks bool) {
 	for _, file := range getAllSysctlFiles(dirs) {
 		// check all config files mentioned in /etc/sysctl.conf and
 		// the sysctl.conf(5) man page
@@ -117,7 +117,7 @@ func getSysctlFilelist(dirs []string, fileList map[string]string, exclude bool) 
 				continue
 			}
 			fileList[origFile] = file
-			if exclude {
+			if excludeSymLinks {
 				fileList[file] = origFile
 			}
 		}
