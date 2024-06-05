@@ -3,8 +3,6 @@ package system
 import (
 	"os"
 	"strings"
-
-	"golang.org/x/text/cases"
 )
 
 // get saptune arguments and flags
