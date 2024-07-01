@@ -59,10 +59,7 @@ func ListParams() (ret []string, err error) {
 // CreateParameterStartValues creates the parameter state file and inserts
 // the start values.
 func CreateParameterStartValues(param, value string) {
-	pEntries := ParameterNotes{
-		AllNotes: make([]ParameterNoteEntry, 0, 64),
-	}
-	pEntries = GetSavedParameterNotes(param)
+	pEntries := GetSavedParameterNotes(param)
 	if len(pEntries.AllNotes) == 0 {
 		system.DebugLog("Write parameter start value '%s' to file '%s'", value, GetPathToParameter(param))
 		// file does not exist, create start entry
@@ -80,10 +77,7 @@ func CreateParameterStartValues(param, value string) {
 
 // AddParameterNoteValues adds note parameter values to the state file.
 func AddParameterNoteValues(param, value, noteID string) {
-	pEntries := ParameterNotes{
-		AllNotes: make([]ParameterNoteEntry, 0, 64),
-	}
-	pEntries = GetSavedParameterNotes(param)
+	pEntries := GetSavedParameterNotes(param)
 	if len(pEntries.AllNotes) != 0 && !IDInParameterList(noteID, pEntries.AllNotes) {
 		system.DebugLog("Write note '%s' parameter value '%s' to file '%s'", noteID, value, GetPathToParameter(param))
 		// file exis
@@ -168,11 +162,8 @@ func PositionInParameterList(noteID string, list []ParameterNoteEntry) int {
 func RevertParameter(param, noteID string) (string, string) {
 	pvalue := ""
 	pnoteID := ""
-	pEntries := ParameterNotes{
-		AllNotes: make([]ParameterNoteEntry, 0, 64),
-	}
 	// read values from the parameter state file
-	pEntries = GetSavedParameterNotes(param)
+	pEntries := GetSavedParameterNotes(param)
 	if len(pEntries.AllNotes) == 0 {
 		return pvalue, pnoteID
 	}
