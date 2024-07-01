@@ -17,7 +17,10 @@ func jsonMarshalAndBack(original interface{}, receiver interface{}, t *testing.T
 	if err != nil {
 		t.Fatal(original, err)
 	}
-	json.Unmarshal(serialised, &receiver)
+	err = json.Unmarshal(serialised, &receiver)
+	if err != nil {
+		t.Fatal(original, err)
+	}
 }
 
 func TestNoteSerialisation(t *testing.T) {
