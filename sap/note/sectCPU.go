@@ -47,7 +47,7 @@ func OptCPUVal(key, actval, cfgval string) string {
 	// cpu0:performance cpu2:powersave
 	sval := strings.ToLower(cfgval)
 	rval := ""
-	val := "0"
+	var val string
 	switch key {
 	case "force_latency":
 		rval = sval
