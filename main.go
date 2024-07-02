@@ -145,12 +145,7 @@ func preliminaryRootPrivilegedChecks(arg1 string) {
 			actions.PrintHelpAndExit(os.Stdout, 1)
 		}
 	} else if arg1 == "check" {
-		err := callSaptuneCheckScript()
-		if err != nil {
-			system.ErrorExit("command '%+s' failed with error '%v'\n", saptcheck, err)
-		} else {
-			system.ErrorExit("", 0)
-		}
+		callSaptuneCheckScript()
 	}
 }
 
@@ -183,7 +178,7 @@ func checkForTuned() {
 // callSaptuneCheckScript will simply call the saptune_check script
 // it's done before the saptune lock is set, but after the check for
 // running as root
-func callSaptuneCheckScript() error {
+func callSaptuneCheckScript() {
 	system.JnotSupportedYet()
 	// call external scrip saptune_check
 	cmd := exec.Command(saptcheck)
@@ -191,7 +186,11 @@ func callSaptuneCheckScript() error {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
-	return err
+	if err != nil {
+		system.ErrorExit("command '%+s' failed with error '%v'\n", saptcheck, err)
+	} else {
+		system.ErrorExit("", 0)
+	}
 }
 
 // checkWorkingArea checks, if solution and note configs exist in the working
