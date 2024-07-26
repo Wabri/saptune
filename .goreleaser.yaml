@@ -13,6 +13,6 @@ builds:
     # Default: '-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser'.
     # Templates: allowed.
     ldflags:
-      - -X 'github.com/SUSE/saptune/actions.RPMVersion={{.Version}}'
+      - -X 'github.com/SUSE/saptune/actions.RPMVersion={{.Env.Version}}'
       - -X 'github.com/SUSE/saptune/actions.RPMDate={{.Env.bdate}}'
 
